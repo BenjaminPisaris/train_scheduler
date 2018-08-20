@@ -34,7 +34,7 @@ $("#add").on("click", function () {
     $("#destination").val("");
     $("#time").val("");
     $("#frequency").val("");
-
+    alert("Train added to schedule!");
     //Determine when the next train arrives
     return false;
 
