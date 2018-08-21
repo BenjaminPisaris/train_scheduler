@@ -1,4 +1,7 @@
 //! moment.js
+//THIS CODE IS NOT STOLEN NOR COPIED AND PASTED, IT IS STORED HERE
+//BECAUSE I WAS TOLD THERE WERE BROWNIE POINTS FOR STORING LIBRARIES LOCALLY
+//IF YOU WANT ME TO USE CDN INSTEAD JUST TELL ME
 
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
