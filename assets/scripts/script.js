@@ -27,7 +27,7 @@ $("#add").on("click", function () {
   var inputFreq = $("#frequency").val();
 
 
-  
+
 
   //store the input variables into a new object
   var uploadMe = {
@@ -39,6 +39,7 @@ $("#add").on("click", function () {
   console.log(uploadMe);
   //upload the object to FireBase
   data.ref().push(uploadMe);
+  alert("Train " + uploadMe.name + " was added to the schedule");
 });
 
 //Append entries to table
@@ -46,22 +47,23 @@ data.ref().on("child_added", function (childSnapshot) {
   console.log(childSnapshot.val());
   //create object to append to table
 
-    //Use moment.js(4000+ lines of code included locally instead of relying on a CDN) to pretty
+  //Use moment.js(4000+ lines of code included locally instead of relying on a CDN) to pretty
   //the time up for display and parse it into usable data
   //split the time up by the colon to make an array
-  var timeArr = inputTime.split(":");
+  var timeArr = childSnapshot.val().firstTrain.split(":");
   var prettyTime = moment().hours(timeArr[0]).minutes(timeArr[1]);
   var maximum = moment.max(moment(), prettyTime);
   var minutes;
   var arrival;
 
 
+
   //If the first train is set to depart after the current time
   //set the arrival to the first train time
   if (maximum === prettyTime) {
     //make the variable format in a 12 hour clock instead of military time
-    arrival = prettyTime.format("hh:mm A");
-    minutes = prettyTime.diff(moment(), "minutes");
+    var arrival = prettyTime.format("hh:mm A");
+    var minutes = prettyTime.diff(moment(), "minutes");
   } else {
     //calculate the difference between the current time and the first train time in minutes
     var difference = moment().diff(prettyTime, "minutes");
@@ -69,7 +71,7 @@ data.ref().on("child_added", function (childSnapshot) {
     var modulus = difference % childSnapshot.val().frequency;
     //find the minutes by subtracting the modulus from the frequency
     minutes = childSnapshot.val().frequency - modulus;
-
+    var arrival = moment().add(minutes, "m").format("hh:mm A");
   }
 
 
@@ -77,10 +79,12 @@ data.ref().on("child_added", function (childSnapshot) {
     $("<td>").text(childSnapshot.val().name),
     $("<td>").text(childSnapshot.val().destination),
     $("<td>").text(childSnapshot.val().frequency),
-    $("<td>").text(childSnapshot.val().firstTrain)); //MOMENT to fix this
+    $("<td>").text(arrival),
+    $("<td>").text(minutes)
+  );
 
 
-    
+
 
   //Append object to table
   $("#appendHere").append(dataAppend);
