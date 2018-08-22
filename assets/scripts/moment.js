@@ -1,7 +1,5 @@
 //! moment.js
-//the code below is the code found in the moment.js CDN that every other person did their assignment with
-//it is stored locally to save on load times, but if this is what you consider
-//grounds for plagiarism then please tell me and I'll switch over to the CDN
+
 
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
