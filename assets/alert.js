@@ -1,1 +1,3 @@
-$(document).ready(function {alert()});
+window.addEventListener("load", function(event) {
+    alert();
+  });
